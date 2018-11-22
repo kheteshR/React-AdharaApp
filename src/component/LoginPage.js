@@ -11,8 +11,8 @@ class LoginPageComponent extends Component {
         return ( 
             <View style={styles.container}>
             <View style={styles.logoContainer}>
-            <Image  style={styles.logo} source={require('./Images/ActualUaE.png')}/>
-            <Text style={{fontWeight: 'bold',fontSize:20}}>An app made for Beauty Salon</Text>
+            <Image  style={styles.logo} source={require('./Images/beauty.png')}/>
+            <Text style={{fontWeight: 'bold',fontSize:20}}>Beauty Salon</Text>
             </View>
             <View style={styles.formContainer}>
             <LoginForm/>
