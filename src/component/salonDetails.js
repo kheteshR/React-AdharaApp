@@ -18,7 +18,6 @@ const AdminDetail=({album})=>{
    
     return(
      <Cards>
-     
      <CardSection>
  
         <View style={thumbnailContainerStyle}>

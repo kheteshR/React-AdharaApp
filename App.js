@@ -9,8 +9,9 @@
 import React, {Component} from 'react';
 import {Platform,StyleSheet,View} from 'react-native';
 import Header from './src/component/header';
-import SalonList from './src/component/SalonList';
-// import Button from './src/component/Button';
+// import { TextField } from 'react-native-material-textfield'
+// import SalonList from './src/component/SalonList';
+import LoginPageComponent from './src/component/LoginPage';
 
 
 const instructions = Platform.select({
@@ -25,22 +26,26 @@ export default class App extends Component{
   constructor(){
     super()
   this.state={
-    showMainScreen: true
+    // showMainScreen: true,
+    // username:'',
+    // password:''
   }
  
   }
-  toggleViewHandler=()=>{
-    console.log("toggleViewHandler**********");
-    const doesShow=this.state.showMainScreen;
-    this.setState({showMainScreen:!doesShow})
-  };
+  // toggleViewHandler=()=>{
+  //   console.log("toggleViewHandler**********");
+  //   const doesShow=this.state.showMainScreen;
+  //   this.setState({showMainScreen:!doesShow})
+  // };
  
   render() {
-    console.log("toggleViewHandler**********",this.state.showMainScreen);
+ 
+
     return (
-      <View style={{flex:1}} showMainScreen={this.state.showMainScreen}>
-         <Header headerText={'Adhaara Project'}/>
-         <SalonList/>
+      <View style={styles.container}>
+         <Header headerText={'Adhaara Sign In'}/>
+       
+         <LoginPageComponent/>
     </View>
  );
   }
@@ -50,9 +55,8 @@ export default class App extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
-    justifyContent:'center',
-    padding:'10%'
+    backgroundColor: '#f2784b',
+    
   }
 
 });
