@@ -1,29 +1,87 @@
 import React ,{Component} from 'react';
-import {Alert,View,TextInput,TouchableOpacity,Text,KeyboardAvoidingView,StatusBar} from 'react-native';
-
+import AwesomeAlert from 'react-native-awesome-alerts';
+import {View,TextInput,TouchableOpacity,Text,KeyboardAvoidingView,StatusBar} from 'react-native';
+import firebase from 'firebase';
+import Spinner from './Spinner'
 
 class LoginForm extends Component {
-    constructor(props) {
-      super(props);
+    constructor() {
+      super();
       this.state = { 
         username:'',
-        password:''
+        password:'',
+        error:'',
+        loading:false,
+        
      }
     }
     getValueUsername=(text)=>{
         console.log("get username----->",text);
         this.setState({username:text});
-        
         console.log("get username----->",this.state.username);
     }
     getValuePassword=(text)=>{
         this.setState({password:text});
         console.log("get password----->",this.state.password);
     }
-  
+    onButton=()=>{
+        console.log("onButton",this.state.username,this.state.password);
 
+        this.setState({
+                       error:'',
+                       loading:true
+                    });
+        console.log("firebase set loading true inside onButton",this.state)
+        firebase.auth().signInWithEmailAndPassword(this.state.username,this.state.password)
+        .then(this.LoginSucess.bind(this))
+        .catch(()=>{
+            firebase.auth().createUserWithEmailAndPassword(this.state.username,this.state.password)
+            .then(this.LoginSucess.bind(this))
+            .catch(()=>{
+                this.onLoginFail.bind(this)
+
+            });
+        });
+        console.log("firebase authentication done",this.state)
+    }
+
+    LoginSucess(){
+        this.setState({
+            error:'',
+            username:'',
+            password:'',
+            loading:false
+           
+         });
+    }
+    onLoginFail(){
+        this.setState({
+            error:'Authentication Failed',
+            username:'',
+            password:'',
+            loading:false
+         });
+
+
+    }
+    renderButton(){
+        if(this.state.loading){
+            console.log("loading is true",this.state.loading);
+            return <Spinner size="small"/>
+        }else{
+            console.log("loading in else statement",this.state.loading);
+        return (
+            <TouchableOpacity onPress={this.onButton}>
+            <Text style={styles.registerButton}>Sign In with Gmail Account</Text>
+            </TouchableOpacity>
+        );
+        }
+
+    }
       LoginApi_Integartion=async ()=>{
-        fetch('http://192.168.1.22:3007/login', {
+          
+        console.log(this.state.username,this.state.password,this.state.loading);
+        fetch('http://192.168.1.22:4003/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -35,21 +93,26 @@ class LoginForm extends Component {
             })
       })
           .then((response) => 
-          console.log("response",response))
-      
-          Alert.alert('Credentials Submit Successfully')
-
+         
+          console.log("response------->",response))
+          .catch(function(error) {
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+             // ADD THIS THROW error
+              throw error;
+            });
+       
+        
       }
+
+    
     render() { 
-     
         return ( 
-         <KeyboardAvoidingView behaviour="padding" style={styles.container}>
-            
+         <View style={styles.container}>
           <StatusBar
            backgroundColor="blue"
            barStyle="light-content"
            />
-
+          <Text style={styles.errorStyle}>{this.state.error}</Text>
           <TextInput 
           placeholder="Enter Username or email"
           keyboardType='email-address'
@@ -63,19 +126,25 @@ class LoginForm extends Component {
           <TextInput  
           placeholder="Enter password"
           secureTextEntry
+          autoCorrect={false}
           onChangeText={this.getValuePassword}
           style={styles.input}>
-          
           </TextInput>
+
+        
           
-            <TouchableOpacity style={styles.buttonContainer} 
-              onPress={this.LoginApi_Integartion}
+          <TouchableOpacity style={styles.buttonContainer} 
+              onPress={this.LoginApi_Integartion.bind(this)}
               title="OK!"
               color="#841584"
               >
             <Text style={styles.button}>Login</Text>
             </TouchableOpacity>
-            </KeyboardAvoidingView>
+            {this.renderButton()} 
+            <TouchableOpacity style={styles.RegistrationStyle} >
+            <Text style={styles.registerButton}>haven't register yet?</Text>
+            </TouchableOpacity>
+            </View>
          );
     }
 };
@@ -85,26 +154,48 @@ class LoginForm extends Component {
 const styles = {
     container: {
       padding:25,
+    //   marginTop:100,
+    //   backgroundColor:'green'
     },
     input:{
         height:40,
         backgroundColor:'rgba(255,255,255,0.7)',
-        marginBottom:20,
+        marginBottom:15,
         borderRadius:5,
-        color:'grey',
+        color:'black',
         paddingHorizontal:10
-
     },
     button:{
         textAlign:'center',
         color:'#FFFFFF',
         fontWeight:'700'
     },
+    registerButton:{
+        fontStyle: 'italic',
+        textAlign:'center',
+        // backgroundColor:'',
+        color:'#FFFFFF',
+        fontWeight:'700',
+        marginBottom:10
+    },
     buttonContainer:{
         backgroundColor:'#336e7b',
         borderRadius:5,
-        paddingVertical:15
+        paddingVertical:15,
+        marginBottom:20
 
+    },
+    RegistrationStyle:{
+        // backgroundColor:'#336e7b',
+        borderRadius:5,
+        paddingVertical:15,
+        marginBottom:20
+    },
+    errorStyle:{
+        fontSize:20,
+        color:'red',
+        alignSelf:'center',
+        marginBottom:5
     }
    
 };

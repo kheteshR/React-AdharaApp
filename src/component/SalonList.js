@@ -10,13 +10,14 @@ import AdminDetail from './salonDetails';
     // class property state
     state={albums:[]}
      
-    //automatically executed
+    //automatically executed Lifecycle methods
      componentWillMount(){
          console.log("componentWillMount in AlnumList");
          axios.get('https://rallycoding.herokuapp.com/api/music_albums')
          .then(response=>{
              this.setState({albums: response.data});
          })  
+         console.log("my class state prop",this.state);
      }
 
      // mapping each elements in array 
@@ -26,7 +27,7 @@ import AdminDetail from './salonDetails';
 
 
      render(){
-         console.log("my class state prop",this.state);
+         
      return(
          <ScrollView>
          {this.renderSalonList()}

@@ -1,15 +1,14 @@
 //import library for making a component
 import React from 'react';
-import {Text,View,Image} from 'react-native';
+import {Text,View,Image,Linking} from 'react-native';
 import Cards from './Cards';
 import CardSection from './cardSection';
 import Button from './Button';
 
 //create functional component
-
 const AdminDetail=({album})=>{
     console.log("{}",{album})
-    const {title,artist,thumbnail_image,image}=album;
+    const {title,artist,thumbnail_image,image,url}=album;
     const {thumbnailContainerStyle,
            thumbnailStyle,
            headerContentStyle,
@@ -41,7 +40,9 @@ const AdminDetail=({album})=>{
         </CardSection>
 
         <CardSection>
-        <Button onPress={()=>console.log(title)}></Button>
+        <Button onPress={()=>Linking.openURL(url)}>
+        Buy Now
+        </Button>
         </CardSection>
 
 
@@ -74,7 +75,6 @@ const styles={
         height:300,
         flex:1,
         width:null
-
     }
 
 

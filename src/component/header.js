@@ -6,14 +6,15 @@ import {Text,View} from 'react-native';
 
 //Make a components
 const Header=(props)=>{
-    console.log("props========>",props);
-    //Destructuring object
-    const {ViewStyle,textStyle}=styles;
+   console.log("props========>",props);
+    
+   //Destructuring object
+   const {ViewStyle,textStyle}=styles;
 
    return (
-    <View style={ViewStyle}>   
-    <Text style={textStyle}>{props.headerText}</Text>
-    </View>
+   <View style={ViewStyle}>   
+   <Text style={textStyle}>{props.headerText}</Text>
+   </View>
    );
 };
 

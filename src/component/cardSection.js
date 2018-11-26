@@ -1,18 +1,15 @@
 //import library for making a component
 import React from 'react';
-import {View,Text} from 'react-native';
+import {View} from 'react-native';
 
 
 
 //Make a components
 const CardSection=(props)=>{
    return (
-       
     <View style={styles.containerStyle}> 
-     
-    {props.children}
+      {props.children}
     </View>
-
    );
 };
 
