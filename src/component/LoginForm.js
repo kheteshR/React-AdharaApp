@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import {View,TextInput,TouchableOpacity,Text,KeyboardAvoidingView,StatusBar} from 'react-native';
+
+import {View,TextInput,TouchableOpacity,Text,StatusBar} from 'react-native';
 import firebase from 'firebase';
 import Spinner from './Spinner'
 
@@ -15,6 +15,7 @@ class LoginForm extends Component {
         
      }
     }
+   
     getValueUsername=(text)=>{
         console.log("get username----->",text);
         this.setState({username:text});
@@ -72,7 +73,7 @@ class LoginForm extends Component {
             console.log("loading in else statement",this.state.loading);
         return (
             <TouchableOpacity onPress={this.onButton}>
-            <Text style={styles.registerButton}>Sign In with Gmail Account</Text>
+            <Text style={styles.registerButton}>Sign In with Google Account</Text>
             </TouchableOpacity>
         );
         }
@@ -141,9 +142,6 @@ class LoginForm extends Component {
             <Text style={styles.button}>Login</Text>
             </TouchableOpacity>
             {this.renderButton()} 
-            <TouchableOpacity style={styles.RegistrationStyle} >
-            <Text style={styles.registerButton}>haven't register yet?</Text>
-            </TouchableOpacity>
             </View>
          );
     }
@@ -154,8 +152,7 @@ class LoginForm extends Component {
 const styles = {
     container: {
       padding:25,
-    //   marginTop:100,
-    //   backgroundColor:'green'
+    
     },
     input:{
         height:40,
@@ -170,16 +167,20 @@ const styles = {
         color:'#FFFFFF',
         fontWeight:'700'
     },
+
+   
     registerButton:{
         fontStyle: 'italic',
         textAlign:'center',
         // backgroundColor:'',
-        color:'#FFFFFF',
+        color:'black',
         fontWeight:'700',
-        marginBottom:10
-    },
+        margin:10,
+        marginLeft:5
+        },
+       
     buttonContainer:{
-        backgroundColor:'#336e7b',
+        backgroundColor:'#e81d62',
         borderRadius:5,
         paddingVertical:15,
         marginBottom:20

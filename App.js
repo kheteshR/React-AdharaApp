@@ -12,7 +12,9 @@ import Header from './src/component/header';
 // import { TextField } from 'react-native-material-textfield'
 import SalonList from './src/component/SalonList';
 import LoginPageComponent from './src/component/LoginPage';
+import Routes from './src/component/routes';
 import firebase from 'firebase';
+import RegistrationPage from './src/component/SignUp';
 
 
 
@@ -76,8 +78,7 @@ export default class App extends Component{
   render() {
     return (
       <View style={styles.container}>
-        
-        {this.renderContent()}
+      <Routes/>
     </View>
  );
   }
@@ -86,10 +87,13 @@ export default class App extends Component{
 //Apply CSS
 const styles = StyleSheet.create({
   container:{
-    flex:1
+    flexGrow:1,
+    // backgroundColor: 'radial-gradient(circle at 50% 43%, #e81d62, rgba(188, 25, 80, 0.4) 96%, #e81d62)'
+
+
   },
   LoginContainer: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: 'radial-gradient(circle at 50% 43%, #e81d62, rgba(188, 25, 80, 0.4) 96%, #e81d62)'
   }
 
