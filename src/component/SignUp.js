@@ -7,6 +7,7 @@ TouchableOpacity,
 TextInput
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 
@@ -39,7 +40,11 @@ class RegistrationPage extends Component {
    iban_number : '',
    user_name : '',
    password : '',
-   status_of_registration:''
+   status_of_registration:'',
+   phoneError:'',
+   first_name_salon_owner_Error:'',
+   last_name_salon_owner_Error:'',
+   email_of_salon_Error:''
      }
 
     signupButton(){
@@ -73,14 +78,11 @@ class RegistrationPage extends Component {
             return response.json();
        
           }).then((data)=>{
-              console.log("response object returned by response.json() here response.json returns promise so resolve it",data);
+          console.log("response object returned by response.json(), here response.json returns promise so resolve it",data);
           this.setState({
               "status_of_registration":false
           })
-          
-          
-          
-            })
+    })
           
           .catch(function(error) {
             console.log('There has been a problem with your fetch operation: ' + error.message);
@@ -88,49 +90,118 @@ class RegistrationPage extends Component {
               throw error;
             });
        }
-
+       phoneNumber=()=>{
+           if(this.state.phoneError==="Please enter valid phone number"){
+            return <Text style={{color:'red'}}>{this.state.phoneError}</Text>;
+           }else {
+            return <Text style={{color:'green'}}>{this.state.phoneError}</Text>;
+           }
+          }
+          first_name=()=>{
+            if(this.state.first_name_salon_owner_Error==="first name should not be empty"){
+             return <Text style={{color:'red'}}>{this.state.first_name_salon_owner_Error}</Text>;
+            }else {
+             return <Text style={{color:'green'}}>{this.state.first_name_salon_owner_Error}</Text>;
+            }
+           }
+           last_name=()=>{
+            if(this.state.last_name_salon_owner_Error==="last name should not be empty"){
+             return <Text style={{color:'red'}}>{this.state.last_name_salon_owner_Error}</Text>;
+            }else {
+             return <Text style={{color:'green'}}>{this.state.last_name_salon_owner_Error}</Text>;
+            }
+           }
+           email=()=>{
+            if(this.state.email_of_salon_Error==="Please enter valid email address"){
+             return <Text style={{color:'red'}}>{this.state.email_of_salon_Error}</Text>;
+            }else {
+             return <Text style={{color:'green'}}>{this.state.email_of_salon_Error}</Text>;
+            }
+           }
        renderButton(){
         switch(this.state.status_of_registration){
             case true:
-             return <Text>Successfully Register</Text>;
+             return <Text style={styles.TextCss1}>Successfully Register</Text>;
             case false:
-            return <Text>Waiting for Admin approval</Text>;
-             default:
+            return (
+                <View  style={styles.TextContainer}>
+                <Text  style={styles.TextCss1}>Thanks for registration ,</Text>
+                <Text  style={styles.TextCss1}>will update you soon by Email</Text>
+                </View>  
+            );
+            default:
+           
             return(
-                <TouchableOpacity  style={styles.buttonContainer} onPress={this.SignupApi_Integartion}>
+                
+                <View style={styles.container}>
+                <TextInput  style={styles.textInput} placeholder="salon name" underlineColorAndroid={'transparent'}
+                onChangeText={(name_of_salon) => this.setState({"name_of_salon":name_of_salon})}
+                ></TextInput>
+                <Text></Text>
+                <TextInput  style={styles.textInput} placeholder="first name of salon owner" underlineColorAndroid={'transparent'}
+                onChangeText={(first_name_salon_owner) =>{
+                
+                    if(first_name_salon_owner===""){
+                        console.log("test")
+                        this.setState({'first_name_salon_owner_Error': "first name should not be empty"})
+                        
+                      }else{
+                   
+                            this.setState({'first_name_salon_owner': first_name_salon_owner,'first_name_salon_owner_Error': "valid first name"})}  
+                        
+                      }
+                    }
+                ></TextInput>
+                <Text>{this.first_name()}</Text>
+                <TextInput placeholder="last name of salon owner" style={styles.textInput} underlineColorAndroid={'transparent'}
+                onChangeText={(last_name_salon_owner) => {
+                    if(last_name_salon_owner===""){
+               
+                    this.setState({'last_name_salon_owner_Error': "last name should not be empty"})
+                    
+                  }else{
+               
+                        this.setState({'last_name_salon_owner': last_name_salon_owner,'last_name_salon_owner_Error': "valid last name"})}  
+                  }
+                }
+            ></TextInput>
+            <Text>{this.last_name()}</Text>
+            <TextInput placeholder="contact number" style={styles.textInput} underlineColorAndroid={'transparent'}
+                onChangeText={(salon_owner_phone) => {
+
+                      if(isNaN(salon_owner_phone) || salon_owner_phone.length > 1 || salon_owner_phone.length <= 10){
+                        this.setState({'phoneError': "Please enter valid phone number"})
+                          if(salon_owner_phone.length == 10){
+                            this.setState({'salon_owner_phone': salon_owner_phone,'phoneError': "phone number is valid"})}  
+                        }
+                      }}
+                ></TextInput>
+                 {this.phoneNumber()}
+                <TextInput placeholder="address" style={styles.textInput} underlineColorAndroid={'transparent'}
+                onChangeText={(address_of_salon) => this.setState({"address_of_salon":address_of_salon})}
+                ></TextInput>
+                <Text></Text>
+                <TextInput placeholder="emirated id" style={styles.textInput} underlineColorAndroid={'transparent'}
+                onChangeText={(emirates_id_of_owner) => this.setState({"emirates_id_of_owner":emirates_id_of_owner})}
+                ></TextInput>
+                <Text></Text>
+                <TextInput placeholder="email id" style={styles.textInput} underlineColorAndroid={'transparent'}
+                onChangeText={(email_of_salon) =>{
+                    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                    if(reg.test(email_of_salon)== true){
+                        console.log("please check",email_of_salon)
+                        this.setState({'email_of_salon': email_of_salon,'email_of_salon_Error': "valid email address"})
+                         }else{
+                            this.setState({'email_of_salon_Error': "Please enter valid email address"})
+                         }  
+                      
+                    }}
+              ></TextInput>
+                <Text>{this.email()}</Text>
+            <TouchableOpacity  style={styles.buttonContainer} onPress={this.SignupApi_Integartion}>
             <Text style={styles.button}>Sign up</Text>
             </TouchableOpacity>
-            );
-         }
-        }
 
-    render() { 
-        return (  
-            <View style={styles.container}>
-            <TextInput  style={styles.textInput} placeholder="salon name" underlineColorAndroid={'transparent'}
-            onChangeText={(name_of_salon) => this.setState({"name_of_salon":name_of_salon})}
-            ></TextInput>
-            <TextInput  style={styles.textInput} placeholder="first name of salon owner" underlineColorAndroid={'transparent'}
-            onChangeText={(first_name_salon_owner) => this.setState({"first_name_salon_owner":first_name_salon_owner})}
-            ></TextInput>
-            <TextInput placeholder="last name of salon owner" style={styles.textInput} underlineColorAndroid={'transparent'}
-            onChangeText={(last_name_salon_owner) => this.setState({"last_name_salon_owner":last_name_salon_owner})}
-            ></TextInput>
-            <TextInput placeholder="contact number" style={styles.textInput} underlineColorAndroid={'transparent'}
-            onChangeText={(salon_owner_phone) => this.setState({"salon_owner_phone":salon_owner_phone})}
-            ></TextInput>
-            <TextInput placeholder="address" style={styles.textInput} underlineColorAndroid={'transparent'}
-            onChangeText={(address_of_salon) => this.setState({"address_of_salon":address_of_salon})}
-            ></TextInput>
-            <TextInput placeholder="emirated id" style={styles.textInput} underlineColorAndroid={'transparent'}
-            onChangeText={(emirates_id_of_owner) => this.setState({"emirates_id_of_owner":emirates_id_of_owner})}
-            ></TextInput>
-            
-            <TextInput placeholder="email id" style={styles.textInput} underlineColorAndroid={'transparent'}
-            onChangeText={(email_of_salon) => this.setState({"email_of_salon":email_of_salon})}
-            ></TextInput>
-
-            {this.renderButton()}
             <View style={styles.SignUpContainer} >
             <Text style={styles.Signuptext}>Already have an account?</Text>
             <TouchableOpacity onPress={this.goBack}>
@@ -138,16 +209,41 @@ class RegistrationPage extends Component {
             </TouchableOpacity>
             </View>
             </View>
+            );
+         }
+        }
+
+    render() { 
+        return (  
+           
+          <KeyboardAwareScrollView style={{flex:1,alignSelf:'stretch',backgroundColor: 'white'}}>
+            {this.renderButton()}
+            </KeyboardAwareScrollView>
+           
         );
     }
 }
  const styles=StyleSheet.create({
      container:{
-        alignItems:'center',
+         alignItems:'center',
          flexGrow:1,
-         backgroundColor: 'white'
+         
 
      },
+     TextContainer:{
+        flexGrow: 1,   
+        justifyContent: 'center',
+        alignItems: 'center',
+     },
+     TextCss1:{
+        
+        color:'green',
+        fontFamily: 'Cochin',
+        fontWeight:'bold',
+        fontSize:18,
+        fontStyle: 'italic'
+     },
+    
      button:{
         textAlign:'center',
         color:'#FFFFFF',
@@ -167,6 +263,7 @@ class RegistrationPage extends Component {
         justifyContent:'center',
         paddingVertical:10,
         flexDirection:'row',
+        // backgroundColor:"grey"
      },
      signupButton:{
         color:'#5333ed',
@@ -177,10 +274,10 @@ class RegistrationPage extends Component {
     textInput:{
         alignSelf:'stretch',
         height:40,
-        margin:10,
+        margin:2,
         color:'black',
         borderBottomColor:'#f8f8f8',
-        borderBottomWidth:1
+        borderBottomWidth:2
 
     },
          Signuptext:{

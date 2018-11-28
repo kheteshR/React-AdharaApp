@@ -14,7 +14,7 @@ import SalonList from './src/component/SalonList';
 import LoginPageComponent from './src/component/LoginPage';
 import Routes from './src/component/routes';
 import firebase from 'firebase';
-import RegistrationPage from './src/component/SignUp';
+
 
 
 

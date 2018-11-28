@@ -1,33 +1,41 @@
 import React ,{Component} from 'react';
-import {View,Text,Image,TouchableOpacity} from 'react-native';
+import {View,Text,Image,TouchableOpacity,KeyboardAvoidingView} from 'react-native';
 import LoginForm from './LoginForm';
 import {Actions} from 'react-native-router-flux';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class LoginPageComponent extends Component {
     signup(){
         Actions.signup()
+    }
+    forgotpassword(){
+        Actions.forgot_password()
     }
 
     state = {  }
     render() { 
        
         return ( 
-            <View style={styles.container}>
+            <KeyboardAwareScrollView style={styles.container} >
             <View style={styles.logoContainer}>
             <Image style={styles.logo} source={require('./Images/Group.png')}/>
             <Text style={styles.textStyling}>Adhaara</Text>
             </View>
-            <View styles={styles.formContainer}>
+           
             <LoginForm/>
-            </View>
+          
             <View style={styles.SignUpContainer} >
             <Text style={styles.Signuptext}>Don't have an account yet? </Text>
             <TouchableOpacity onPress={this.signup}>
             <Text style={styles.signupButton}>Sign up here</Text>
             </TouchableOpacity>
             </View>
+            <View style={styles.SignUpContainer} >
+            <TouchableOpacity onPress={this.forgotpassword}>
+            <Text style={styles.signupButton}>Forgot password?</Text>
+            </TouchableOpacity>
             </View>
+            </KeyboardAwareScrollView>
          );
     }
 };

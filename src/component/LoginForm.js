@@ -2,7 +2,8 @@ import React ,{Component} from 'react';
 
 import {View,TextInput,TouchableOpacity,Text,StatusBar} from 'react-native';
 import firebase from 'firebase';
-import Spinner from './Spinner'
+import Spinner from './Spinner';
+
 
 class LoginForm extends Component {
     constructor() {
