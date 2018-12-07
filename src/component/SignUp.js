@@ -53,14 +53,14 @@ class RegistrationPage extends Component {
     goBack=()=>{
         Actions.login();
     }
+    
     SignupApi_Integartion=async ()=>{
-          
         console.log(this.state.name_of_salon,this.state.first_name_salon_owner,this.state.salon_owner_phone);
-        fetch('http://192.168.1.22:4003/request', {
+         fetch('http://192.168.1.22:4003/request', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
            "name_of_salon":this.state.name_of_salon,
@@ -70,7 +70,6 @@ class RegistrationPage extends Component {
            "address_of_salon":this.state.address_of_salon,
            "emirates_id_of_owner":this.state.emirates_id_of_owner,
            "email_of_salon":this.state.email_of_salon
-
             })
       })
           .then((response) => {
@@ -85,7 +84,7 @@ class RegistrationPage extends Component {
     })
           
           .catch(function(error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
+            console.log('There has been a problem with your fetch operation: ' + error);
              // ADD THIS THROW error
               throw error;
             });
@@ -125,8 +124,7 @@ class RegistrationPage extends Component {
             case false:
             return (
                 <View  style={styles.TextContainer}>
-                <Text  style={styles.TextCss1}>Thanks for registration ,</Text>
-                <Text  style={styles.TextCss1}>will update you soon by Email</Text>
+                <Text  style={styles.TextCss1}>Thanks for registration ,{"\n"}will update you soon by Email</Text>
                 </View>  
             );
             default:
@@ -146,9 +144,7 @@ class RegistrationPage extends Component {
                         this.setState({'first_name_salon_owner_Error': "first name should not be empty"})
                         
                       }else{
-                   
                             this.setState({'first_name_salon_owner': first_name_salon_owner,'first_name_salon_owner_Error': "valid first name"})}  
-                        
                       }
                     }
                 ></TextInput>
@@ -193,8 +189,7 @@ class RegistrationPage extends Component {
                         this.setState({'email_of_salon': email_of_salon,'email_of_salon_Error': "valid email address"})
                          }else{
                             this.setState({'email_of_salon_Error': "Please enter valid email address"})
-                         }  
-                      
+                         } 
                     }}
               ></TextInput>
                 <Text>{this.email()}</Text>
@@ -231,16 +226,16 @@ class RegistrationPage extends Component {
 
      },
      TextContainer:{
-        flexGrow: 1,   
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginTop: 100,
+        justifyContent: "center", 
+        alignItems: "center"
      },
      TextCss1:{
         
         color:'green',
         fontFamily: 'Cochin',
         fontWeight:'bold',
-        fontSize:18,
+        fontSize:20,
         fontStyle: 'italic'
      },
     

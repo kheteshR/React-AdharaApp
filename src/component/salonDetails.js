@@ -7,7 +7,7 @@ import Button from './Button';
 
 //create functional component
 const AdminDetail=({album})=>{
-    console.log("{}",{album})
+    // console.log("{}",{album})
     const {title,artist,thumbnail_image,image,url}=album;
     const {thumbnailContainerStyle,
            thumbnailStyle,

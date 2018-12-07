@@ -1,6 +1,6 @@
 //import library for making a component
 import React ,{Component} from 'react';
-import {Text,ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 import axios from 'axios';
 import AdminDetail from './salonDetails';
 
@@ -17,7 +17,7 @@ import AdminDetail from './salonDetails';
          .then(response=>{
              this.setState({albums: response.data});
          })  
-         console.log("my class state prop",this.state);
+         console.log("my class state prop",this.state.albums);
      }
 
      // mapping each elements in array 
