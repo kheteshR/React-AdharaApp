@@ -54,17 +54,24 @@ class LoginForm extends Component {
             })
 
       }).then((response) => {
-         console.log("Get response from login api",response);
+        if(response == null){ 
+        console.log("Get response from login api",response);
          
-    if(response!=null){
-    this.homePage();
-    console.log("get something");
-    this.setState({
-        error:'',
-        loading:false,
-        username:'',
-        password:''
-     });
+         this.setState({
+            error:'',
+            loading:true,
+            username:'',
+            password:''
+         });
+        }else{
+            this.homePage();
+            console.log("get something");
+        this.setState({
+          error:'',
+          loading:false,
+          username:'',
+          password:''
+         });
     }}).catch(function(error) {
             console.log('There has been a problem with your fetch operation: ' + error.message);
              // ADD THIS THROW error

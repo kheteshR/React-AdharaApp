@@ -15,6 +15,7 @@ import AdminDetail from './salonDetails';
          console.log("componentWillMount in AlnumList");
          axios.get('https://rallycoding.herokuapp.com/api/music_albums')
          .then(response=>{
+             console.log("check salon list response:",response);
              this.setState({albums: response.data});
          })  
          console.log("my class state prop",this.state.albums);
