@@ -2,11 +2,9 @@
 import React from 'react';
 import {Text,View} from 'react-native';
 
-
-
 //Make a components
 const Header=(props)=>{
-   console.log("props========>",props);
+   console.log("**********props**********",props);
     
    //Destructuring object
    const {ViewStyle,textStyle}=styles;

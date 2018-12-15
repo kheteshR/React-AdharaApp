@@ -1,8 +1,14 @@
 
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View,Image} from 'react-native';
+import Spinner from './src/component/Spinner'
 import Header from './src/component/header';
 import Routes from './src/component/routes';
+import AddStylist from './src/component/AddStylist'
+import AddStylistScreen from './src/component/home';
+import {Provider} from 'react-redux'; // provider is only for sending state to react component
+import { createStore } from 'redux';
+import reducers from './src/reducers'; //for manipulation of state
 
 
 export default class App extends Component{
@@ -16,7 +22,6 @@ export default class App extends Component{
       return (
         <View>
         <Header headerText={'Adhaara Sign Out'}/>
-  
         </View>
         );
       case false:
@@ -34,9 +39,11 @@ export default class App extends Component{
   
   render() {
     return (
+      <Provider store={createStore(reducers)}>
       <View style={styles.container}>
-       <Routes/>
+       <AddStylist/>
       </View>
+      </Provider>
     );
   }
 }

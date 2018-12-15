@@ -17,7 +17,8 @@ const styles={
 containerStyle:{
     borderBottomWidth:1,
     padding:5,
-    backgroundColor:'#fff',
+    
+    // backgroundColor:'#fff',
     // justifyContent:'center',
     flexDirection:'row',
     borderColor:'#ddd',

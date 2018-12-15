@@ -1,0 +1,26 @@
+
+
+
+[
+    {
+        "key" : "a",
+        "Service_Category": "Face",
+        "service_name" : "Goldfacial",
+        "price": "200",
+        "Duration": "1 Hour"
+    },
+    {
+        "key" : "b",
+        "Service_Category": "Hair",
+        "service_name" : "Fruitfacial",
+        "price": "200",
+        "Duration": "2 Hour"
+    },
+    {
+        "key" : "c",
+        "Service_Category": "massaze",
+        "service_name" : "Diamondfacial",
+        "price": "200",
+        "Duration": "3 Hour"
+    }
+ ]

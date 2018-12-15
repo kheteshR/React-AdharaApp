@@ -18,8 +18,8 @@ const styles={
             borderRadius:2,  //give  border radius 
             borderColor:'#ddd' ,  //give border color
             borderBottomWidth:0 ,  //modification of border bottom width
-            // shadowColor:'#000',
-            // shadowOffset:{width:0,height:2},
+            //shadowColor:'#000',
+            //shadowOffset:{width:0,height:2},
             elevation:2,
             marginLeft:5,
             marginRight:5,
